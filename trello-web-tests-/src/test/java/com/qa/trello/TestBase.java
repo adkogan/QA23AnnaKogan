@@ -156,4 +156,34 @@ public class TestBase {
         confirmBoardCreation();
         returnToHomePage();
     }
+
+    public void createTeam() {
+        initTeamCreation();
+        fillForm("Team_test2", By.cssSelector("[class='_38pq5NbRWAG39y']"));
+        confirmTeamCreation();
+    }
+
+    public void permanentlyDeleteTeam() {
+        click(By.cssSelector(".js-confirm"));
+    }
+
+    public void initTeamDeletionInMoreMenu() {
+        click(By.cssSelector(".quiet-button"));
+    }
+
+    public void clickSettingsButton() {
+        click(By.cssSelector(".icon-gear"));
+    }
+
+    public void openFirstPersonalTeam() {
+        click(By.xpath("//ul[div/div/div/text() = 'teams']/li[1]"));
+
+    }
+    public int getTeamsCount() {
+        return wd.findElements(By.xpath("//ul[div/div/div/text() = 'teams']/li")).size()-1;
+    }
+
+
+
+
 }
