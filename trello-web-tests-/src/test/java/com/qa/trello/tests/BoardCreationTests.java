@@ -1,6 +1,6 @@
 
 
-package com.qa.trello;
+package com.qa.trello.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,12 +10,12 @@ public class BoardCreationTests extends TestBase {
 
     @Test
     public void testBoardCreation() {
-        int before = getBoardsCount();
-        initBoardCreation();
-        fillBoardForm("Test3", "[title='blue']");
-        confirmBoardCreation();
-        returnToHomePage();
-        int after = getBoardsCount();
+        int before = app.getBoard().getBoardsCount();
+        app.getBoard().initBoardCreation();
+        app.getBoard().fillBoardForm("Test3", "[title='blue']");
+        app.getBoard().confirmBoardCreation();
+        app.getBoard().returnToHomePage();
+        int after = app.getBoard().getBoardsCount();
 
        Assert.assertEquals(after, before + 1);
 
