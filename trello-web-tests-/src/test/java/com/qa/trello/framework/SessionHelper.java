@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 
 public class SessionHelper extends HelperBase {
 
-
     public SessionHelper(WebDriver wd) {
 
         super(wd);
@@ -28,7 +27,6 @@ public class SessionHelper extends HelperBase {
     public void confirmLogin() {
         click(By.id("login"));
     }
-
 
 
 }

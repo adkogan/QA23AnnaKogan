@@ -3,17 +3,28 @@
 package com.qa.trello.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class BoardCreationTests extends TestBase {
+    @BeforeMethod
+    public void ensurePreconditions() throws InterruptedException {
+
+        if(!app.isOnBoardsPage()){
+            app.getBoard().goToBoardsPageUrl("annakogan6");
+            //app.getBoard().click(By.cssSelector("[href$=boards]"));
+        }
+    }
+
+
 
 
     @Test
     public void testBoardCreation() {
         int before = app.getBoard().getBoardsCount();
-        app.getBoard().initBoardCreation();
-        app.getBoard().fillBoardForm("Test3", "[title='blue']");
-        app.getBoard().confirmBoardCreation();
+//        app.getBoard().initBoardCreation();
+//        app.getBoard().fillBoardForm("Test3", "[title='blue']");
+//        app.getBoard().confirmBoardCreation();
         app.getBoard().returnToHomePage();
         int after = app.getBoard().getBoardsCount();
 

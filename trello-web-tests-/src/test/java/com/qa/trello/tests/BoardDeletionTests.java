@@ -10,14 +10,15 @@ public class BoardDeletionTests extends TestBase {
 
 
     @BeforeMethod
-    public void ensurePreconditions(){
+    public void ensurePreconditions() throws InterruptedException {
 
-        if(!app.getBoard().isOnBoardsPage()){
-            app.getBoard().click(By.cssSelector("[href$=boards]"));
+        if(!app.isOnBoardsPage()){
+            app.getBoard().goToBoardsPageUrl("annakogan6");
+            //app.getBoard().click(By.cssSelector("[href$=boards]"));
         }
-        if(app.getBoard().getBoardsCount()==0){
-            app.getBoard().createBoard();
-        }
+//        if(app.getBoard().getBoardsCount()==0){
+//            app.getBoard().createBoard();
+//        }
     }
 
     @Test
