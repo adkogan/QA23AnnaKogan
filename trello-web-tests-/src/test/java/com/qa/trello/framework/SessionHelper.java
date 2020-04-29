@@ -12,16 +12,22 @@ public class SessionHelper extends HelperBase {
     }
 
 
+    public void login (String email, String pwd)  {
+        initLogin();
+        fillLoginForm(email, pwd);
+        confirmLogin();
+    }
+
+
     public void initLogin() {
-        click(By.cssSelector("a[href*='login']"));
+       waitForElementLocatedAndClick(By.cssSelector("a[href*='login']"), 10);
     }
 
     public void fillLoginForm(String userEmail, String password) {
-        initLogin();
         type(By.name("user"), userEmail);
         type(By.cssSelector("input#password"), password);
         click(By.cssSelector("#login.button-green"));
-        confirmLogin();
+
     }
 
     public void confirmLogin() {

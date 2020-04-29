@@ -1,5 +1,6 @@
 package com.qa.trello.framework;
 
+import com.qa.trello.model.Team;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,27 +12,7 @@ public class TeamHelper extends HelperBase {
     }
 
 
-    public void createTeam() {
-        initTeamCreation();
-        fillTeamForm("Test_team");
-        confirmTeamCreation();
-
-    }
-
-    public void fillTeamForm(String nameOfTeam) {
-        type(By.cssSelector("[data-test-id=header-create-team-name-input]"), nameOfTeam);
-        click(By.id("teamTypeSelect"));
-        click(By.cssSelector("[data-test-id^=header-create-team-type] li"));
-    }
-
-    public String confirmTeamCreation() {
-        //click(By.cssSelector("[type='submit']"));
-        //waitForElementLocatedAndClick(By.xpath("//button[@data-test-id ='header-create-team-submit-button']"), 20);
-        click(By.xpath("//button[@data-test-id ='header-create-team-submit-button']"));
-        inviteTeamLater();
-        final String url=  wd.getCurrentUrl();
-        return url;
-    }
+//team creation
 
     public void initTeamCreation() {
         //click(By.xpath("[data-test-id ='header-create-menu-button']"));
@@ -39,7 +20,25 @@ public class TeamHelper extends HelperBase {
         // click(By.cssSelector(".icon-add"));
     }
 
+    public void fillTeamForm(Team nameOfTeam) {
+        type(By.cssSelector("[data-test-id=header-create-team-name-input]"), "qa");
+        click(By.id("teamTypeSelect"));
+        click(By.cssSelector("[data-test-id^=header-create-team-type] li"));
+    }
 
+
+    public void createTeam() {
+        openFirstPersonalTeam();
+        initTeamDeletionInMoreMenu();
+        permanentlyDeleteTeam();
+        returnToHomePage();
+    }
+
+    public void confirmTeamCreation() {
+        click(By.cssSelector("[type='submit']"));
+        click(By.cssSelector("[class='eg0KI5SqghoOFd']"));
+
+    }
     public void inviteTeamLater() {
         if (isElementPresent(By.cssSelector("[data-test-id=show-later-button]"))) {
             click(By.cssSelector("[data-test-id=show-later-button]"));
@@ -47,17 +46,18 @@ public class TeamHelper extends HelperBase {
         }
     }
 
+    //Team deletion
     public void permanentlyDeleteTeam() {
         confirm();
     }
 
     public void initTeamDeletionInMoreMenu() {
-        click(By.cssSelector(".quiet-button"));
+        waitForElementLocatedAndClick(By.cssSelector(".quiet-button"), 10);
     }
 
 
     public void clickSettingsButton() {
-       // click(By.cssSelector(".icon-gear"));
+        click(By.cssSelector(".icon-gear"));
         click(By.cssSelector(".js-org-account"));
     }
 
@@ -70,16 +70,16 @@ public class TeamHelper extends HelperBase {
         return wd.findElements(By.xpath("//ul[div/div/div/text() = 'teams']/li")).size() - 1;
     }
 
-    public void changeTeamName(String nameOfTeam) {
-        //clickSettingsButton();
 
+    //team modification
+    public void changeTeamName(String nameOfTeam) {
+        clickSettingsButton();
         click(By.xpath("//button[contains(., 'Edit Team')]"));
         wd.findElement(By.xpath("//input[@id='displayName']")).clear();
-        wd.findElement(By.xpath("//input[@id='displayName']")).sendKeys(nameOfTeam + Keys.ENTER);
+        wd.findElement(By.xpath("//input[@id='displayName']")).sendKeys("retest" + Keys.ENTER);
 
-       // click(By.cssSelector(".js-org-account"))
+        // click(By.cssSelector(".js-org-account"))
 //
-
 
     }
 

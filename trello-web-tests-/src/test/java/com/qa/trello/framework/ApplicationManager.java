@@ -1,46 +1,59 @@
 package com.qa.trello.framework;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-  String browser;
+    String browser;
     public WebDriver wd;
     BoardHelper board;
     TeamHelper team;
     SessionHelper session;
-    //String browser;
+
 
     public ApplicationManager(String browser) {
         this.browser = browser;
     }
 
 
-    public void init() {
-
+    public void init() throws InterruptedException {
 
         if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
         }
         if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
-        }
+        }//if(browser.equals(BrowserType.EDGE)){
+        //wd = new EdgeDriver();
+        //  }
 
 
-        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wd.manage().window().maximize();
         wd.navigate().to("https://trello.com/");
+      //  Thread.sleep(2000);
 
         session = new SessionHelper(wd);
-        session.fillLoginForm("adkogan@gmail.com", "5605105zxc");
+        session.login("adkogan@gmail.com", "5605105zxc");
+
+
+        new WebDriverWait(wd, 20).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-test-id=header-member-menu-button]")));
         board = new BoardHelper(wd);
         team = new TeamHelper(wd);
     }
 
 
-
+    public boolean isOnBoardsPage() {
+        String url = wd.getCurrentUrl();
+        return url.contains("boards");
+    }
 
     public void stop() {
         wd.quit();
@@ -59,9 +72,5 @@ public class ApplicationManager {
         return team;
     }
 
-    public boolean isOnBoardsPage() throws InterruptedException {
-        Thread.sleep(4000);
-        String url = wd.getCurrentUrl();
-        return url.contains("boards");
-    }
+
 }

@@ -1,30 +1,46 @@
+
+
+
 package com.qa.trello.framework;
 
+import com.qa.trello.model.Board;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BoardHelper extends HelperBase {
 
     public BoardHelper(WebDriver wd) {
         super(wd);
+
     }
 
-    public String createBoard(String nameOfBoard, String colorOfBoard) {
+    public void initBoardCreation() {
         click(By.name("add"));
         click(By.cssSelector("[data-test-id='header-create-board-button']"));
+    }
+
+    public void confirmBoardCreation() {
+        click(By.cssSelector("[class='_3UeOvlU6B5KUnS uj9Ovoj4USRUQz _2MgouXHqRQDP_5']"));
+    }
+
+    public void fillBoardForm(Board board) {
+        typeBoardName(board.getName());
+        selectTeamFromBoardCreationForm(board.getTeam());
+        click(By.cssSelector("[title='" + board.getColor() + "']"));
+    }
+
+    private void typeBoardName(String nameOfBoard) {
+
         type(By.cssSelector("[data-test-id='create-board-title-input']"), nameOfBoard);
-        click(By.cssSelector("button.W6rMLOx8U0MrPx")); //choose team
-        click(By.xpath("//li[1]/button[@class='_2jR0BZMM5cBReR']"));
-        click(By.cssSelector(colorOfBoard));
-        click(By.cssSelector("[data-test-id= 'create-board-submit-button']"));
-        waitForElement(By.className("mod-board-name"), 2);
-        final String url = wd.getCurrentUrl();
-        final int namePosition = url.lastIndexOf(nameOfBoard);
-        if (namePosition>0) {
-            return url.substring(0, namePosition-1);
-        }
-        return url;
+    }
+
+    private void selectTeamFromBoardCreationForm(String team) {
+        click(By.cssSelector("button.W6rMLOx8U0MrPx"));
+        click(By.xpath("//span[contains(text(), '" + team + "')]"));
     }
 
     public void permanentlyDeleteBoard() {
@@ -42,8 +58,12 @@ public class BoardHelper extends HelperBase {
     }
 
     public void clickMoreButton() {
-       // click(By.cssSelector(".js-open-more"));
-        click(By.xpath("//li[contains(a/text(), 'More')]"));
+        WebElement moreButton = new WebDriverWait(wd, 30)
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".js-open-more")));
+        if (!moreButton.isDisplayed()) {
+            wd.findElement(By.cssSelector(".board-header-btn.mod-show-menu.js-show-sidebar")).click();
+        }
+        click(By.cssSelector(".js-open-more"));
     }
 
     public void openFirstPersonalBoard() {
@@ -51,42 +71,42 @@ public class BoardHelper extends HelperBase {
     }
 
     public int getBoardsCount() {
-        return wd.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size()-1;
+        return wd.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size() - 1;
     }
 
-//    public void createBoard(){
-//        initBoardCreation();
-//        fillBoardForm("Test", "[title='blue']");
-//        confirmBoardCreation();
-//        returnToHomePage();
-//    }
+    public void createBoard() {
+        initBoardCreation();
+        fillBoardForm(new Board()
+                .withName("Test")
+                .withTeam("No team"));
+
+        confirmBoardCreation();
+        returnToHomePage();
+    }
 
 
-    public void changeName(String newName) {
-
+    public void changeName() {
 //    //click on name
         wd.findElement(By.cssSelector(".js-rename-board")).click();
 //    //type text and enter
-        wd.findElement(By.cssSelector("input.js-board-name-input")).sendKeys(newName + Keys.ENTER);
+        wd.findElement(By.cssSelector("input.js-board-name-input")).sendKeys("ggg" + Keys.ENTER);
         //type(By.cssSelector(".js-rename-board"), "ggg"+ Keys.ENTER);
 
 
-    }
-
-    public void goToBoardsPageUrl(String username){
-        wd.navigate().to("https://trello.com/" +username+ "boards");
-
-    }
-    public boolean isOnBoardsPage() {
-        String url = wd.getCurrentUrl();
-        return url.contains("boards");
     }
 
     public void openBoardsPage() {
         click(By.cssSelector("[href$=boards]"));
     }
 
-    public void openBoard() {
+    public void goToBoardsPageUrl(String username) {
+        wd.navigate().to("https://trello.com/" + username + "/boards");
+    }
 
+
+    public boolean isOnBoardsPage() {
+        String url = wd.getCurrentUrl();
+        return url.contains("boards");
     }
 }
+

@@ -10,8 +10,7 @@ import java.util.Random;
 
 public class HelperBase {
     WebDriver wd;
-  public
-  WebDriverWait wait;
+    WebDriverWait wait;
 
     public HelperBase(WebDriver wd) {
 
@@ -23,7 +22,6 @@ public class HelperBase {
     }
 
     public void click(By locator) {
-
         wd.findElement(locator).click();
     }
 
@@ -38,16 +36,17 @@ public class HelperBase {
         click(By.cssSelector(".js-confirm"));
     }
 
-    public void
-    waitForElementLocatedAndClick(By locator, int timeOut) {
-        waitForElement(locator, timeOut).click();
+    public void waitForElementLocatedAndClick(By locator, int timeOut) {
+        new WebDriverWait(wd, timeOut)
+                .until(ExpectedConditions.presenceOfElementLocated(locator))
+                .click();
     }
 
-    public WebElement waitForElement(By locator, int timeOut) {
-        return new WebDriverWait(wd, timeOut)
-
-                .until(ExpectedConditions.presenceOfElementLocated(locator));
-    }
+//    public WebElement waitForElement(By locator, int timeOut) {
+//        return new WebDriverWait(wd, timeOut)
+//
+//                .until(ExpectedConditions.presenceOfElementLocated(locator));
+//    }
 
 
     public boolean isElementPresent(By locator) {
