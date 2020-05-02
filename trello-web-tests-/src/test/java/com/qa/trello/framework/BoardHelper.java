@@ -24,7 +24,8 @@ public class BoardHelper extends HelperBase {
     }
 
     public void confirmBoardCreation() {
-        click(By.cssSelector("[class='_3UeOvlU6B5KUnS uj9Ovoj4USRUQz _2MgouXHqRQDP_5']"));
+       click(By.cssSelector("[class='_3UeOvlU6B5KUnS uj9Ovoj4USRUQz _2MgouXHqRQDP_5']"));
+       // click(By.xpath("[data-test-id=\"create-board-submit-button\"]"));
     }
 
     public void fillBoardForm(Board board) {
@@ -40,6 +41,8 @@ public class BoardHelper extends HelperBase {
 
     private void selectTeamFromBoardCreationForm(String team) {
         click(By.cssSelector("button.W6rMLOx8U0MrPx"));
+       // click(By.cssSelector(".subtle-chooser-trigger.unstyled-button.org-chooser-trigger"));
+        //click(By.cssSelector(".icon-sm.icon-check"));
         click(By.xpath("//span[contains(text(), '" + team + "')]"));
     }
 
