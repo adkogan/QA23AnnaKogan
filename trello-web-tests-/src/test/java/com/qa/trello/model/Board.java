@@ -1,9 +1,9 @@
 package com.qa.trello.model;
 
 public class Board {
-    private  String name;
-    private  String team;
-    private  String color;
+    private String name;
+    private String team;
+    private String color;
 
     public Board withName(String name) {
         this.name = name;
@@ -30,5 +30,15 @@ public class Board {
 
     public String getColor() {
         return color;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "name='" + name + '\'' +
+                ", team='" + team + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
 }

@@ -21,7 +21,7 @@ public class BoardDeletionTests extends TestBase {
     }
 
     @Test
-    public void testBoardDeletion() {
+    public void testBoardDeletion() throws InterruptedException {
 
         int before = app.getBoard().getBoardsCount();
         app.getBoard().openFirstPersonalBoard();

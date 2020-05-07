@@ -18,7 +18,7 @@ public class BoardModificationTests extends TestBase {
 
 
     @Test
-    public void testBoardNameModification() {
+    public void testBoardNameModification() throws InterruptedException {
         app.getBoard().openFirstPersonalBoard();
         app.getBoard().changeName();
         app.getBoard().returnToHomePage();

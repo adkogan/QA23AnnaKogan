@@ -1,3 +1,7 @@
+plugins {
+    id 'java'
+}
+
 group 'Anna'
 version '1.0-SNAPSHOT'
 
@@ -10,20 +14,24 @@ repositories {
 }
 
 dependencies {
-
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     implementation 'org.testng:testng:7.1.0'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
 }
 
 test{
-    useTestNG {
+    useTestNG()
+}
+
+task testRegression(type: Test){
+    useTestNG{
         suites 'src/test/resources/testng.xml'
     }
        if(project.hasProperty('browser')){
            systemProperty 'browser', "${browser}"
        }
     }
+
 
 task testBoards(type: Test){
     useTestNG {
@@ -42,4 +50,11 @@ task testTeams(type: Test){
     if(project.hasProperty('browser')){
         systemProperty 'browser', "${browser}"
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
 }

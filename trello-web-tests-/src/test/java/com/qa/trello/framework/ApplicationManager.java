@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,10 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     String browser;
-    public WebDriver wd;
+    WebDriver wd;
     BoardHelper board;
     TeamHelper team;
     SessionHelper session;
+    ProfileHelper profile;
+    LocalFileDetector fileDetector;
 
 
     public ApplicationManager(String browser) {
@@ -35,10 +39,11 @@ public class ApplicationManager {
         //  }
 
 
+
         wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wd.manage().window().maximize();
         wd.navigate().to("https://trello.com/");
-      //  Thread.sleep(2000);
+       // Thread.sleep(2000);
 
         session = new SessionHelper(wd);
         session.login("adkogan@gmail.com", "5605105zxc");
@@ -47,6 +52,8 @@ public class ApplicationManager {
         new WebDriverWait(wd, 20).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-test-id=header-member-menu-button]")));
         board = new BoardHelper(wd);
         team = new TeamHelper(wd);
+        profile = new ProfileHelper(wd);
+
     }
 
 
@@ -73,4 +80,7 @@ public class ApplicationManager {
     }
 
 
+    public ProfileHelper getProfile() {
+        return profile;
+    }
 }

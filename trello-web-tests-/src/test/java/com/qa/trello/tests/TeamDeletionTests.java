@@ -26,7 +26,7 @@ public class TeamDeletionTests extends TestBase {
 
 
     @Test
-        public void testBoardDeletion(){
+        public void testBoardDeletion() throws InterruptedException {
             int before = app.getTeam().getTeamsCount();
             app.getTeam().openFirstPersonalTeam();
             app.getTeam().clickSettingsButton();

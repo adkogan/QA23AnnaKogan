@@ -20,7 +20,7 @@ public class TeamModificationTests extends  TestBase{
 
 
     @Test
-    public void testTeamNameModification() {
+    public void testTeamNameModification() throws InterruptedException {
         app.getTeam().openFirstPersonalTeam();
         app.getTeam().changeTeamName("retest");
         app.getBoard().returnToHomePage();

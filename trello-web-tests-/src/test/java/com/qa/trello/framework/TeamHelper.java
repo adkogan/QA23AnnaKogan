@@ -27,7 +27,7 @@ public class TeamHelper extends HelperBase {
     }
 
 
-    public void createTeam() {
+    public void createTeam() throws InterruptedException {
         openFirstPersonalTeam();
         initTeamDeletionInMoreMenu();
         permanentlyDeleteTeam();

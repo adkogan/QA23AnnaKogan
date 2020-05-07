@@ -17,8 +17,10 @@ public class HelperBase {
         this.wd = wd;
     }
 
-    public void returnToHomePage() {
+    public void returnToHomePage() throws InterruptedException {
         click(By.cssSelector("[name ='house']"));
+//        click(By.xpath("//*[@name='house']"));
+//        Thread.sleep(4000);
     }
 
     public void click(By locator) {

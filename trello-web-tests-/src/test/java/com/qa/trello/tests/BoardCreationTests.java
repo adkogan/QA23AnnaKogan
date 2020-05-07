@@ -20,6 +20,7 @@ public class BoardCreationTests extends TestBase {
 
         if (!app.getBoard().isOnBoardsPage()) {
             app.getBoard().goToBoardsPageUrl("annakogan6");
+            // app.getBoard().click(By.cssSelector("[href$=boards]"));
         }
     }
 
@@ -34,7 +35,7 @@ public class BoardCreationTests extends TestBase {
 //        String line;
 //        while ((line = reader.readLine()) != null) {
 //            String[] split = line.split(";");
-//            list.add(new Object[]{new Board().withName(split[0]).withTeam(split[1])});
+//            list.add(new Object[]{new Board().withName(split[0]).withTeam(split[1]).withColor(split[2])});
 //        }
 //        return list.iterator();
 
@@ -54,7 +55,7 @@ public class BoardCreationTests extends TestBase {
 
 
     @Test(dataProvider = "validBoards")
-    public void testBoardCreation(Board board) {
+    public void testBoardCreation(Board board) throws InterruptedException {
         int before = app.getBoard().getBoardsCount();
         app.getBoard().initBoardCreation();
         app.getBoard().fillBoardForm(board);

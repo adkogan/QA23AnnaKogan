@@ -12,13 +12,12 @@ public class TeamCreationTests extends TestBase {
     public void ensurePreconditions() throws InterruptedException {
 
         if(!app.getBoard().isOnBoardsPage()){
-
             app.getBoard().goToBoardsPageUrl("annakogan6");
         }
     }
 
     @Test
-    public void testTeamCreation()  {
+    public void testTeamCreation() throws InterruptedException {
         app.getTeam().initTeamCreation();
         app.getTeam().fillTeamForm (
                 new Team()

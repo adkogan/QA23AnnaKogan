@@ -31,7 +31,14 @@ public class BoardHelper extends HelperBase {
     public void fillBoardForm(Board board) {
         typeBoardName(board.getName());
         selectTeamFromBoardCreationForm(board.getTeam());
-        click(By.cssSelector("[title='" + board.getColor() + "']"));
+        selectColor(board.getColor());
+       // click(By.cssSelector("[title='" + board.getColor() + "']"));
+    }
+
+    private void selectColor(String color) {
+        if(color != null){
+            click(By.cssSelector("[title='"+color+"']"));
+        }
     }
 
     private void typeBoardName(String nameOfBoard) {
@@ -40,10 +47,14 @@ public class BoardHelper extends HelperBase {
     }
 
     private void selectTeamFromBoardCreationForm(String team) {
-        click(By.cssSelector("button.W6rMLOx8U0MrPx"));
+        if(team != null){
+            click(By.cssSelector("button.W6rMLOx8U0MrPx"));
+            click(By.xpath("//span[contains(text(), '" + team + "')]"));
+        }
+      //  click(By.cssSelector("button.W6rMLOx8U0MrPx"));
        // click(By.cssSelector(".subtle-chooser-trigger.unstyled-button.org-chooser-trigger"));
         //click(By.cssSelector(".icon-sm.icon-check"));
-        click(By.xpath("//span[contains(text(), '" + team + "')]"));
+     //   click(By.xpath("//span[contains(text(), '" + team + "')]"));
     }
 
     public void permanentlyDeleteBoard() {
@@ -77,7 +88,7 @@ public class BoardHelper extends HelperBase {
         return wd.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size() - 1;
     }
 
-    public void createBoard() {
+    public void createBoard() throws InterruptedException {
         initBoardCreation();
         fillBoardForm(new Board()
                 .withName("Test")
