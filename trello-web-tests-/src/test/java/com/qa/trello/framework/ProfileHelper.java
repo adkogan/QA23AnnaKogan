@@ -54,12 +54,11 @@ public class ProfileHelper extends HelperBase {
         //attachFile(By.cssSelector("button#image-input") - no such element on my version
         attachFile(
                 By.xpath("//input[@type='file']"),
-                new File("/home/adkogan/git/QA23AnnaKogan/QA23AnnaKogan/trello-web-tests-/src/test/resources/catPic.png")
+                new File("/home/adkogan/git/QA23Trello-original/trello-web-tests-/src/test/resources/catPic.png")
         );
         Thread.sleep(3000);
         click(By.xpath("//*[contains(text(), 'Upload')]"));
-
-
+        Thread.sleep(2000);
     }
 
     public void attachFile(By locator, File file){

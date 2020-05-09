@@ -43,11 +43,11 @@ public class ApplicationManager {
         wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wd.manage().window().maximize();
         wd.navigate().to("https://trello.com/");
-       // Thread.sleep(2000);
+
 
         session = new SessionHelper(wd);
         session.login("adkogan@gmail.com", "5605105zxc");
-
+// Thread.sleep(2000);
 
         new WebDriverWait(wd, 20).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-test-id=header-member-menu-button]")));
         board = new BoardHelper(wd);
