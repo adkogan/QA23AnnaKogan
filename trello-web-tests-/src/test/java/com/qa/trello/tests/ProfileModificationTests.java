@@ -12,7 +12,7 @@ public class ProfileModificationTests extends TestBase {
         app.getProfile().selectProfileAndVisibility();
         app.getProfile().initChangeProfilePhoto();
         app.getProfile().uploadPhoto();
-        //app.getProfile().returnToHomePage();
+        app.getProfile().returnToHomePage();
         app.getProfile().refreshPage();
         long afterAvatarChanged = System.currentTimeMillis();
         app.getProfile().takeScreenshot(afterAvatarChanged);
@@ -24,7 +24,24 @@ public class ProfileModificationTests extends TestBase {
     }
 
 
-//Assert.assertTrue.
+    @Test(dependsOnMethods = "testChangeProfileAvatar")
+    public void removeAvatar(){
+        long newAvatar = System.currentTimeMillis();
+        app.getProfile().takeScreenshot(newAvatar);
+        app.getProfile().clickOnAvatar();
+        app.getProfile().selectProfileAndVisibility();
+        app.getProfile().initChangeProfilePhoto();
+        app.getProfile().choseNoAvatar();
+        app.getProfile().refreshPage();
+        long oldAvatar = System.currentTimeMillis();
+        app.getProfile().takeScreenshot(oldAvatar);
+        logger.info("screenshot before: screen " +newAvatar+ ".png");
+        logger.info("screenshot after: screen " +oldAvatar+ ".png");
+
+
+
+
+    }
 
 
 

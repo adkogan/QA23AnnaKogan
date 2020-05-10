@@ -70,4 +70,7 @@ public class ProfileHelper extends HelperBase {
     }
 
 
+    public void choseNoAvatar() {
+        click(By.xpath("//button[contains(text(), 'Initials (no avatar)')]"));
+    }
 }
