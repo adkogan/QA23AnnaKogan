@@ -32,7 +32,7 @@ public class ProfileModificationTests extends TestBase {
         app.getProfile().selectProfileAndVisibility();
         app.getProfile().initChangeProfilePhoto();
         app.getProfile().choseNoAvatar();
-        app.getProfile().refreshPage();
+        app.getProfile().refreshPage(); 
         long oldAvatar = System.currentTimeMillis();
         app.getProfile().takeScreenshot(oldAvatar);
         logger.info("screenshot before: screen " +newAvatar+ ".png");

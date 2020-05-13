@@ -3,13 +3,8 @@ package com.qa.trello.framework;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.LocalFileDetector;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class ProfileHelper extends HelperBase {
 
