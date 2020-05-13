@@ -20,6 +20,7 @@ dependencies {
 }
 
 test{
+    systemProperty "headless", project.findProperty("headless")
     useTestNG()
 }
 

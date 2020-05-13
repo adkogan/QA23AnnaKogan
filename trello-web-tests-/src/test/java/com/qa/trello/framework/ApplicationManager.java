@@ -3,6 +3,7 @@ package com.qa.trello.framework;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.LocalFileDetector;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+    private final boolean headless;
     String browser;
     WebDriver wd;
     BoardHelper board;
@@ -22,15 +24,25 @@ public class ApplicationManager {
     LocalFileDetector fileDetector;
 
 
-    public ApplicationManager(String browser) {
+    public ApplicationManager(
+            String browser,
+            String headless
+    ) {
         this.browser = browser;
+        this.headless = "true".equals(headless);
     }
-
 
     public void init() throws InterruptedException {
 
         if (browser.equals(BrowserType.CHROME)) {
-            wd = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            if (headless) {
+                options.addArguments("--no-sandbox"); //Bypass OS security model
+                options.addArguments("--start-maximized");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--headless");
+            }
+            wd = new ChromeDriver(options);
         }
         if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
@@ -45,6 +57,8 @@ public class ApplicationManager {
         wd.navigate().to("https://trello.com/");
 
 
+
+
         session = new SessionHelper(wd);
         session.login("adkogan@gmail.com", "5605105zxc");
 // Thread.sleep(2000);
@@ -53,6 +67,8 @@ public class ApplicationManager {
         board = new BoardHelper(wd);
         team = new TeamHelper(wd);
         profile = new ProfileHelper(wd);
+
+
 
     }
 
