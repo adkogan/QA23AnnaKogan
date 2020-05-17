@@ -56,18 +56,18 @@ public class BoardCreationTests extends TestBase {
 //    }
 
 
-    @Test(dataProvider = "validBoards")
-    public void testBoardCreation(Board board) throws InterruptedException {
-        int before = app.getBoard().getBoardsCount();
-        app.getBoard().initBoardCreation();
-        app.getBoard().fillBoardForm(board);
-        app.getBoard().confirmBoardCreation();
-        app.getBoard().returnToHomePage();
-        int after = app.getBoard().getBoardsCount();
-
-        Assert.assertEquals(after, before + 1);
-
-    }
+//    @Test(dataProvider = "validBoards")
+//    public void testBoardCreation(Board board) throws InterruptedException {
+//        int before = app.getBoard().getBoardsCount();
+//        app.getBoard().initBoardCreation();
+//        app.getBoard().fillBoardForm(board);
+//        app.getBoard().confirmBoardCreation();
+//        app.getBoard().returnToHomePage();
+//        int after = app.getBoard().getBoardsCount();
+//
+//        Assert.assertEquals(after, before + 1);
+//
+//    }
 
 
 
