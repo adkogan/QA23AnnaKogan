@@ -10,6 +10,12 @@
         </classes>
     </test>
 
+    <test name="BoardDeletion" >
+        <classes>
+            <class name="com.qa.trello.tests.BoardDeletionTests" />
+        </classes>
+    </test>
+
     <test name="Teams">
         <classes>
             <class name="com.qa.trello.tests.TeamCreationTests"/>

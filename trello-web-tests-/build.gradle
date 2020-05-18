@@ -62,6 +62,18 @@ task testTeams(type: Test){
     }
 }
 
+task testBoardDeletion(type: Test){
+    useTestNG {
+        suites 'src/test/resources/testng-boardsDeletion.xml'
+    }
+    if(project.hasProperty('browser')){
+        systemProperty 'browser', "${browser}"
+    }
+    if(project.hasProperty('target')){
+        systemProperty 'target', "${target}"
+    }
+}
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
