@@ -11,6 +11,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -21,8 +26,7 @@ public class ApplicationManager {
     TeamHelper team;
     SessionHelper session;
     ProfileHelper profile;
-    LocalFileDetector fileDetector;
-
+    Properties properties;
 
     public ApplicationManager(
             String browser,
@@ -32,7 +36,7 @@ public class ApplicationManager {
         this.headless = "true".equals(headless);
     }
 
-    public void init() throws InterruptedException {
+    public void init() throws InterruptedException, IOException {
 
         if (browser.equals(BrowserType.CHROME)) {
             ChromeOptions options = new ChromeOptions();
@@ -54,13 +58,19 @@ public class ApplicationManager {
 
         wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wd.manage().window().maximize();
-        wd.navigate().to("https://trello.com/");
+        properties = new Properties();
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
+
+        wd.navigate().to(properties.getProperty("web.baseURL"));
 
 
 
 
         session = new SessionHelper(wd);
-        session.login("adkogan@gmail.com", "5605105zxc");
+        session.login(properties.getProperty("web.user"), properties.getProperty("web.pwd"));
+
 // Thread.sleep(2000);
 
         new WebDriverWait(wd, 20).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-test-id=header-member-menu-button]")));
